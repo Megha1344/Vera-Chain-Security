@@ -8,6 +8,16 @@ from blockchain import vera_ledger
 from difflib import get_close_matches
 import pytesseract  # ← This was missing!
 
+import shutil
+import os
+
+# Automatically find the Tesseract path on the Streamlit Linux server
+tesseract_path = shutil.which("tesseract")
+
+if tesseract_path:
+    pytesseract.pytesseract.tesseract_cmd = tesseract_path
+else:
+    st.error("Tesseract binary not found. Please ensure packages.txt contains tesseract-ocr")
 # Set Tesseract path (VERY IMPORTANT for Windows)
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
